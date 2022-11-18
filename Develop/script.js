@@ -2,18 +2,31 @@ let time = dayjs().format("h:mm:ss");
 let day = dayjs();
 let hour = dayjs().hour();
 //console.log(timeOfDay.innerHTML.substring(0,1));
-
 $("#timer").text(time);
 $("#day").text(day);
-function init() {}
+
+function init() {
+  let hoursArray = JSON.parse(localStorage.getItem("Hours")) || [];
+  hoursArray.forEach((hourObject) => {
+    $(".description").text(hourObject.description);
+    console.log(hourObject);
+  });
+}
 $(function () {
   let buttons = $(".saveBtn");
   buttons.on("click", function (event) {
-    let parent = $(this).closest(".time-block").attr("id");
-    let description = $(this).siblings(".description").val();
-    localStorage.setItem(parent, description);
-    console.log(parent, description);
+    let hourObject = {
+      parent: $(this).closest(".time-block").attr("id"),
+      description: $(this).siblings(".description").val(),
+    };
+    console.log(hourObject.parent, hourObject.description);
+
+    hoursArray.push(hourObject);
+
+    localStorage.setItem("Hours", JSON.stringify(hoursArray));
+    console.log(hoursArray);
   });
+
   init();
   // TODO: Add code to apply the past, present, or future class to each time
   // block by comparing the id to the current hour. HINTS: How can the id
