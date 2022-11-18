@@ -1,16 +1,39 @@
 let time = dayjs().format("h:mm:ss");
 let day = dayjs();
 let hour = dayjs().hour();
-//console.log(timeOfDay.innerHTML.substring(0,1));
-$("#timer").text(time);
+let currentHour = dayjs().format("HH");
+
 $("#day").text(day);
+$("#timer").text(currentHour);
+
 let hoursArray = JSON.parse(localStorage.getItem("Hours")) || [];
+
 function init() {
+  let index = 0;
   hoursArray.forEach((hourObject) => {
-    $(".description").text(hourObject.description);
-    console.log(hourObject);
+    if ("hour-" + index === hourObject.parent) {
+      $(".description").text(hourObject.description);
+      console.log(hourObject);
+    }
+    index++;
+  });
+
+  $(".time-block").each(function () {
+    let timeDiv = $(this).attr("id").split("-")[1];
+
+    if (currentHour === timeDiv) {
+      $(this).addClass("present");
+      $(this).children(".description").addClass("white-text");
+    } else if (currentHour < timeDiv) {
+      $(this).removeClass("present");
+      $(this).addClass("future");
+    } else if (currentHour > timeDiv) {
+      $(this).removeClass("future");
+      $(this).addClass("past");
+    }
   });
 }
+
 $(function () {
   let buttons = $(".saveBtn");
   buttons.on("click", function (event) {
