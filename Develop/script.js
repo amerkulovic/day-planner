@@ -4,9 +4,8 @@ let hour = dayjs().hour();
 //console.log(timeOfDay.innerHTML.substring(0,1));
 $("#timer").text(time);
 $("#day").text(day);
-
+let hoursArray = JSON.parse(localStorage.getItem("Hours")) || [];
 function init() {
-  let hoursArray = JSON.parse(localStorage.getItem("Hours")) || [];
   hoursArray.forEach((hourObject) => {
     $(".description").text(hourObject.description);
     console.log(hourObject);
