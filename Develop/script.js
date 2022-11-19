@@ -9,29 +9,40 @@ $("#timer").text(time);
 let hoursArray = JSON.parse(localStorage.getItem("Hours")) || [];
 
 function init() {
-  // hoursArray.forEach((hourObject) => {
-  // let timeDiv = $("time-block").attr("id").split("-")[1];
+  for (let i = 0; i < hoursArray.length; i++) {
+    let time = hoursArray[i].parent.split("-")[1];
 
-  //   if (timeDiv == hourObject.parent.split("-")[1]) {
-  //     $(".description").text(hourObject.description);
+    $(`#${time}`).val(hoursArray[i].description);
+  }
+  let timeBlock = $(".time-block");
+
+  for (let i = 0; i < timeBlock.length; i++) {
+    let timeDiv = timeBlock[i].getAttribute("id").split("-")[1];
+    console.log(timeDiv);
+    console.log(timeBlock[i].childNodes[3]);
+    if (currentHour === timeDiv) {
+      timeBlock[i].classList.add("present");
+    } else if (currentHour > timeDiv) {
+      timeBlock[i].classList.add("past");
+    } else {
+      timeBlock[i].classList.add("future");
+    }
+  }
+
+  // $(".time-block").each(function () {
+  //   let timeDiv = $(this).attr("id").split("-")[1];
+
+  //   if (currentHour === timeDiv) {
+  //     $(this).addClass("present");
+  //     $(this).children(".description").addClass("white-text");
+  //   } else if (currentHour < timeDiv) {
+  //     $(this).removeClass("present");
+  //     $(this).addClass("future");
+  //   } else if (currentHour > timeDiv) {
+  //     $(this).removeClass("future");
+  //     $(this).addClass("past");
   //   }
   // });
-
-  $(".time-block").each(function () {
-    let timeDiv = $(this).attr("id").split("-")[1];
-    console.log(timeDiv);
-
-    if (currentHour === timeDiv) {
-      $(this).addClass("present");
-      $(this).children(".description").addClass("white-text");
-    } else if (currentHour < timeDiv) {
-      $(this).removeClass("present");
-      $(this).addClass("future");
-    } else if (currentHour > timeDiv) {
-      $(this).removeClass("future");
-      $(this).addClass("past");
-    }
-  });
 }
 
 $(function () {
