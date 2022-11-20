@@ -11,38 +11,37 @@ let hoursArray = JSON.parse(localStorage.getItem("Hours")) || [];
 function init() {
   for (let i = 0; i < hoursArray.length; i++) {
     let time = hoursArray[i].parent.split("-")[1];
-
     $(`#${time}`).val(hoursArray[i].description);
   }
-  let timeBlock = $(".time-block");
+  // let timeBlock = $(".time-block");
 
-  for (let i = 0; i < timeBlock.length; i++) {
-    let timeDiv = timeBlock[i].getAttribute("id").split("-")[1];
-    console.log(timeDiv);
-    console.log(timeBlock[i].childNodes[3]);
-    if (currentHour === timeDiv) {
-      timeBlock[i].classList.add("present");
-    } else if (currentHour > timeDiv) {
-      timeBlock[i].classList.add("past");
-    } else {
-      timeBlock[i].classList.add("future");
-    }
-  }
-
-  // $(".time-block").each(function () {
-  //   let timeDiv = $(this).attr("id").split("-")[1];
-
+  // for (let i = 0; i < timeBlock.length; i++) {
+  //   let timeDiv = timeBlock[i].getAttribute("id").split("-")[1];
+  //   console.log(timeDiv);
+  //   console.log(timeBlock[i].childNodes[3]);
   //   if (currentHour === timeDiv) {
-  //     $(this).addClass("present");
-  //     $(this).children(".description").addClass("white-text");
-  //   } else if (currentHour < timeDiv) {
-  //     $(this).removeClass("present");
-  //     $(this).addClass("future");
+  //     timeBlock[i].classList.add("present");
   //   } else if (currentHour > timeDiv) {
-  //     $(this).removeClass("future");
-  //     $(this).addClass("past");
+  //     timeBlock[i].classList.add("past");
+  //   } else {
+  //     timeBlock[i].classList.add("future");
   //   }
-  // });
+  // }
+
+  $(".time-block").each(function () {
+    let timeDiv = $(this).attr("id").split("-")[1];
+
+    if (currentHour === timeDiv) {
+      $(this).addClass("present");
+      $(this).children(".description").addClass("white-text");
+    } else if (currentHour < timeDiv) {
+      $(this).removeClass("present");
+      $(this).addClass("future");
+    } else if (currentHour > timeDiv) {
+      $(this).removeClass("future");
+      $(this).addClass("past");
+    }
+  });
 }
 
 $(function () {
@@ -61,9 +60,4 @@ $(function () {
   });
 
   init();
-
-  // TODO: Add code to get any user input that was saved in localStorage and set
-  // the values of the corresponding textarea elements. HINT: How can the id
-  // attribute of each time-block be used to do this?
-  //
 });
