@@ -17,8 +17,6 @@ function init() {
 
   // for (let i = 0; i < timeBlock.length; i++) {
   //   let timeDiv = timeBlock[i].getAttribute("id").split("-")[1];
-  //   console.log(timeDiv);
-  //   console.log(timeBlock[i].childNodes[3]);
   //   if (currentHour === timeDiv) {
   //     timeBlock[i].classList.add("present");
   //   } else if (currentHour > timeDiv) {
@@ -51,12 +49,10 @@ $(function () {
       parent: $(this).closest(".time-block").attr("id"),
       description: $(this).siblings(".description").val(),
     };
-    console.log(hourObject.parent.split("-")[1], hourObject.description);
 
     hoursArray.push(hourObject);
 
     localStorage.setItem("Hours", JSON.stringify(hoursArray));
-    console.log(hoursArray);
   });
 
   init();
