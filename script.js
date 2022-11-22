@@ -12,13 +12,25 @@ function init() {
     let time = hoursArray[i].parent.split("-")[1];
     $(`#${time}`).val(hoursArray[i].description);
   }
+  // let timeBlock = $(".time-block");
+
+  // for (let i = 0; i < timeBlock.length; i++) {
+  //   let timeDiv = timeBlock[i].getAttribute("id").split("-")[1];
+  //   if (currentHour === timeDiv) {
+  //     timeBlock[i].classList.add("present");
+  //   } else if (currentHour > timeDiv) {
+  //     timeBlock[i].classList.add("past");
+  //   } else {
+  //     timeBlock[i].classList.add("future");
+  //   }
+  // }
 
   $(".time-block").each(function () {
     let timeDiv = $(this).attr("id").split("-")[1];
 
     if (currentHour === timeDiv) {
       $(this).addClass("present");
-      $(this).children(".description").addClass("white-text");
+      $(this).children(".description").addClass("white");
     } else if (currentHour < timeDiv) {
       $(this).removeClass("present");
       $(this).addClass("future");
